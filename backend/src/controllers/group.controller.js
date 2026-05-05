@@ -1,4 +1,4 @@
-import Group from "../models/group.model";
+import Group from "../models/group.model.js";
 
 export const createGroup = async (req, res) => {
     const { name, members } = req.body;

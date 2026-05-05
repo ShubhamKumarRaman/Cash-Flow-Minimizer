@@ -1,10 +1,10 @@
 import express from 'express'
 import cors from 'cors'
 
-import authRoutes from './routes/auth.routes'
-import userRoutes from './routes/user.routes'
-import groupRoutes from './routes/group.routes'
-import expenseRoutes from './routes/expense.routes'
+import authRoutes from './routes/auth.routes.js'
+import userRoutes from './routes/user.routes.js'
+import groupRoutes from './routes/group.routes.js'
+import expenseRoutes from './routes/expense.routes.js'
 
 const app = express();
 

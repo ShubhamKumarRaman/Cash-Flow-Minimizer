@@ -1,4 +1,4 @@
-import Expense from '../models/expense.model'
+import Expense from '../models/expense.model.js'
 
 export const addExpense = async (req, res) => {
     const { groupId, paidBy, amount, members } = req.body;
