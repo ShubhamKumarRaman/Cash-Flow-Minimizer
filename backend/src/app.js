@@ -5,6 +5,7 @@ import authRoutes from './routes/auth.routes.js'
 import userRoutes from './routes/user.routes.js'
 import groupRoutes from './routes/group.routes.js'
 import expenseRoutes from './routes/expense.routes.js'
+import settlementRoutes from './routes/settlement.routes.js'
 
 const app = express();
 
@@ -15,5 +16,6 @@ app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/groups', groupRoutes);
 app.use('/api/expenses', expenseRoutes);
+app.use('/api/settlement', settlementRoutes);
 
 export default app;
