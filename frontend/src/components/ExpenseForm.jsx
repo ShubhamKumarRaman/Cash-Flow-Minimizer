@@ -32,3 +32,5 @@ function ExpenseForm({ groupId, members, refresh }) {
         </div>
     )
 }
+
+export default ExpenseForm;
