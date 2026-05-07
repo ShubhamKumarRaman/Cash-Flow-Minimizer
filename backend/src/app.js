@@ -8,14 +8,18 @@ import expenseRoutes from './routes/expense.routes.js'
 import settlementRoutes from './routes/settlement.routes.js'
 import mcmfRoutes from './routes/mcmf.routes.js'
 import exportRoutes from './routes/export.routes.js'
+
 import { errorHandler } from './middlewares/error.middleware.js'
+import { limiter } from './middlewares/rateLimit.middleware.js'
 
 const app = express();
 
+// Middlewares
 app.use(cors());
 app.use(express.json());
-app.use(errorHandler);
+app.use(limiter);
 
+// Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/groups', groupRoutes);
@@ -23,5 +27,8 @@ app.use('/api/expenses', expenseRoutes);
 app.use('/api/settlement', settlementRoutes);
 app.use('/api/mcmf', mcmfRoutes);
 app.use('/api/export', exportRoutes);
+
+// Error Handler (ALWAYS LAST)
+app.use(errorHandler);
 
 export default app;
