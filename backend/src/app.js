@@ -7,6 +7,7 @@ import groupRoutes from './routes/group.routes.js'
 import expenseRoutes from './routes/expense.routes.js'
 import settlementRoutes from './routes/settlement.routes.js'
 import mcmfRoutes from './routes/mcmf.routes.js'
+import exportRoutes from './routes/export.routes.js'
 
 const app = express();
 
@@ -19,5 +20,6 @@ app.use('/api/groups', groupRoutes);
 app.use('/api/expenses', expenseRoutes);
 app.use('/api/settlement', settlementRoutes);
 app.use('/api/mcmf', mcmfRoutes);
+app.use('/api/export', exportRoutes);
 
 export default app;
