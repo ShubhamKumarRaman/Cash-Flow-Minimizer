@@ -3,7 +3,7 @@ import API from "../api/axios";
 import { AuthContext } from "../context/AuthContext";
 import { useNavigate } from 'react-router-dom';
 
-function login() {
+function Login() {
     const [form, setForm] = useState({ email: "", password: "" });
     const { login } = useContext(AuthContext);
     const navigate = useNavigate();
@@ -24,4 +24,4 @@ function login() {
     )
 }
 
-export default login;
+export default Login;
