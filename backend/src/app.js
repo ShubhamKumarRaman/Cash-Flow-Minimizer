@@ -8,11 +8,13 @@ import expenseRoutes from './routes/expense.routes.js'
 import settlementRoutes from './routes/settlement.routes.js'
 import mcmfRoutes from './routes/mcmf.routes.js'
 import exportRoutes from './routes/export.routes.js'
+import { errorHandler } from './middlewares/error.middleware.js'
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
+app.use(errorHandler);
 
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
