@@ -3,6 +3,7 @@ import { calculateBalances } from "../services/balance.service.js";
 import User from '../models/user.model.js';
 import Settlement from '../models/settlement.model.js'
 import { calculateInterest } from "../services/interest.service.js";
+import Settlement from '../models/settlement.model.js'
 
 export const getBalances = async (req, res) => {
     const { groupId } = req.params;
@@ -71,4 +72,19 @@ export const markAsPaid = async (req, res) => {
     await settlement.save();
 
     res.json({ message: "Paid", finalAmount });
+}
+
+export const saveSettlements = async (groupId, transactions) => {
+    await Settlement.deleteMany({ groupId });
+
+    const data = transactions.map((t) => ({
+        groupId,
+        from: t.from,
+        to: t.to,
+        amount: t.amount,
+        dueDate: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000),
+        interestRate: 0,
+    }))
+
+    return Settlement.insertMany(data);
 }
