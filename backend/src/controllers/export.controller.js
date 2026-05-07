@@ -1,5 +1,5 @@
-import { generateExcel } from "../services/export.service";
-import { getOptimizedSettlement } from "../services/settlement.service";
+import { generateExcel } from "../services/export.service.js";
+import { getOptimizedSettlement } from "../services/settlement.service.js";
 
 export const exportReport = async (req, res) => {
     const data = await getOptimizedSettlement(req.params.groupId);
