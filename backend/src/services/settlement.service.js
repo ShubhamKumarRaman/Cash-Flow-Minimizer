@@ -1,6 +1,6 @@
 import { calculateBalances } from "./balance.service.js";
 import { minimizeCashFlow } from "../algorithms/greedyMinimizer.js";
-import {Settlement} from '../models/settlement.model.js'
+import Settlement from '../models/settlement.model.js'
 
 export const getOptimizedSettlement = async (groupId) => {
     const balanceMap = await calculateBalances(groupId);
