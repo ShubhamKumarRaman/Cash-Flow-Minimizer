@@ -1,6 +1,8 @@
 import { getOptimizedSettlement } from "../services/settlement.service.js";
 import { calculateBalances } from "../services/balance.service.js";
 import User from '../models/user.model.js';
+import Settlement from '../models/settlement.model.js'
+import { calculateInterest } from "../services/interest.service.js";
 
 export const getBalances = async (req, res) => {
     const { groupId } = req.params;
@@ -40,4 +42,33 @@ export const getSettlement = async (req, res) => {
     }
 
     res.json(result);
+}
+
+export const markAsPaid = async (req, res) => {
+    const { id } = req.params;
+
+    const settlement = await Settlement.findById(id);
+
+    if (!settlement) {
+        return res.status(404).json("Not found");
+    }
+
+    const today = new Date();
+    const due = new Date(settlement.dueDate);
+
+    let finalAmount = settlement.amount;
+
+    if (today > due) {
+        const daysLate = Math.floor((today - due) / (1000 * 60 * 60 * 24));
+        finalAmount = calculateInterest(
+            settlement.amount,
+            settlement.interestRate,
+            daysLate
+        );
+    }
+
+    settlement.isPaid = true;
+    await settlement.save();
+
+    res.json({ message: "Paid", finalAmount });
 }
