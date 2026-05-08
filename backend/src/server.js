@@ -57,17 +57,19 @@ const shutdown = (signal, done) => {
         }
     }
 
+    const forceExitAfterMs = signal === 'SIGUSR2' ? 1500 : 10_000;
+
     setTimeout(() => {
         console.error('Forced shutdown (timeout).');
         process.exit(1);
-    }, 10_000).unref();
+    }, forceExitAfterMs).unref();
 };
 
 process.on('SIGINT', () => shutdown('SIGINT'));
 process.on('SIGTERM', () => shutdown('SIGTERM'));
 
 // Nodemon sends SIGUSR2 on restart; close server then re-signal.
-process.once('SIGUSR2', () => shutdown('SIGUSR2', () => process.kill(process.pid, 'SIGUSR2')));
+process.once('SIGUSR2', () => shutdown('SIGUSR2', () => process.exit(0)));
 
 // app.listen(process.env.PORT, () => {
 //     console.log(`Server running on PORT: ${process.env.PORT}`);

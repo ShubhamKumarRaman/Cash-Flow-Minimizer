@@ -82,7 +82,7 @@ export const getCachedSettlement = async (groupId) => {
 
     const data = await getOptimizedSettlement(groupId);
 
-    await client.setEx(groupId, 60, stringify(data));
+    await client.setEx(groupId, 60, JSON.stringify(data));
 
     return data;
 }
