@@ -41,7 +41,6 @@ Computes the globally optimal settlement with minimum total transfer cost.
 - Express.js
 - MongoDB
 - Mongoose
-- Redis
 
 ### Infrastructure
 - JWT Authentication

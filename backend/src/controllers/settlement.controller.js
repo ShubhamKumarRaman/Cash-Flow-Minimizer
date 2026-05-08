@@ -3,7 +3,6 @@ import { calculateBalances } from "../services/balance.service.js";
 import User from '../models/user.model.js';
 import Settlement from '../models/settlement.model.js'
 import { calculateInterest } from "../services/interest.service.js";
-import client from "../config/redis.js";
 
 export const getBalances = async (req, res) => {
     const { groupId } = req.params;
@@ -72,17 +71,4 @@ export const markAsPaid = async (req, res) => {
     await settlement.save();
 
     res.json({ message: "Paid", finalAmount });
-}
-
-export const getCachedSettlement = async (groupId) => {
-    const cache = await client.get(groupId);
-
-    if (cache)
-        return JSON.parse(cache);
-
-    const data = await getOptimizedSettlement(groupId);
-
-    await client.setEx(groupId, 60, JSON.stringify(data));
-
-    return data;
 }
